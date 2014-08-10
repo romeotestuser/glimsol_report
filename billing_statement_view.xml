@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+    
+		 <record model="ir.ui.view" id="glimsol_billing_receipt_inherit_form_view">
+                <field name="name">account.billing.form</field>
+                <field name="model">account.billing</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account_billing.view_billing_receipt_form"/>
+                <field name="arch" type="xml">
+					<page string="Payment Information" position="after">
+						<page string="Signatories">
+							<group>
+								<group>
+									<field name="approve_user_id"/>
+									<field name="prepare_user_id"/>
+								</group>
+								<group>
+									<field name="verify_user_id"/>
+								</group>
+							</group>
+						</page>
+					</page>
+					
+					<field name="narration" position="replace">
+							<field name="note"/>
+							<field name="narration"/>
+					</field>
+					
+					
+                </field>
+            </record>
+    
+    
+    </data>
+</openerp>

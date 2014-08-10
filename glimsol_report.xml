@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!-- Report Data Declaration -->
+    
+    
+    <!-- Sale Order -->
+    <report auto="False" id="sale.report_sale_order" model="sale.order" name="sale.order.inherit" 
+rml="glimsol_report/report/sale_order.rml" string="Quotation / Order"/>
+
+	<!-- Proforma Invoice -->
+	<report id="report_preforma_invoice" model="sale.order" name="sale.order.proforma.invoice"
+	rml="glimsol_report/report/proforma_invoice.rml" string="Proforma Invoice"/>
+   
+   	<!-- Invoice -->
+        <report
+            auto="False"
+            id="account.account_invoices"
+            model="account.invoice"
+            name="account.invoice"
+            rml="glimsol_report/report/invoice.rml"
+            string="Invoices"
+            attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            attachment_use="True"
+            usage="default"
+            />    
+    
+    <!-- Delivery Order -->
+		<report id="report_delivery_order" model="stock.picking.out" name="picking.out.delivery.order"
+	rml="glimsol_report/report/delivery_order.rml" string="Delivery Order"/>
+	        <report
+            id="delivery.report_shipping"
+            model="stock.picking"
+            name="sale.shipping"
+            multi="True"
+            rml="glimsol_report/report/delivery_order.rml"
+            string="Delivery order"/>
+    
+    <!-- Deliver Reciept -->
+    	<report id="report_delivery_reciept" model="stock.picking.out" name="picking.out.delivery.reciept"
+	rml="glimsol_report/report/delivery_reciept.rml" string="Delivery Receipt"/>    
+	
+		 <record model="ir.ui.view" id="inherit_view_delivery_order_inherit_stock_form_view">
+                <field name="name">stock.picking.out.form</field>
+                <field name="model">stock.picking.out</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="delivery.view_delivery_order_inherit_stock"/>
+                <field name="arch" type="xml">
+                    <button name="%(delivery.report_shipping)d" string="Print Delivery Order" states="confirmed,assigned" type="action" position="after">
+                    
+	                 <button name="%(report_delivery_reciept)d" string="Print Delivery Reciept" states="confirmed,assigned" type="action"/>
+	                 <button name="%(report_delivery_reciept)d" string="Print Delivery Reciept" states="done" type="action" class="oe_highlight"/>
+                    
+					</button>         
+
+                </field>
+            </record>    
+            
+
+        <report
+            id="delivery.report_shipping"
+            model="stock.picking"
+            name="sale.shipping.inherit"
+            multi="True"
+            rml="glimsol_report/report/delivery_order.rml"
+            string="Delivery order"/>
+            
+    <!-- Equipment Transfer -->
+	<delete model="ir.actions.report.xml" search="[('report_name','in',['stock.picking.rndCumqv']), ('model','=','stock.picking')]" />  
+	
+    	<report id="report_equipment_transfer" model="stock.picking" name="picking.equipment.transfer"
+	rml="glimsol_report/report/equipment_transfer.rml" string="Equipment Transfer"/>      
+	
+	<!-- Billing Statement -->
+	
+	<report id="report_billing_statement" model="account.billing" name="glimsol.billing.statement"
+	rml="glimsol_report/report/billing_statement.rml" string="Billing Statement"/> 	
+    </data>
+</openerp>

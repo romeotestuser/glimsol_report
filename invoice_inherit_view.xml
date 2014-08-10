@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+    
+		 <record model="ir.ui.view" id="account_invoice_inherit_form_view">
+                <field name="name">account.invoice.inherit.form</field>
+                <field name="model">account.invoice</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="account.invoice_form"/>
+                <field name="arch" type="xml">
+					<div class="oe_clear" position="before">
+						<group style="width: 40%%">
+						<field name="billing_type"/>
+						</group>
+
+						<group>
+								<field name="billing_extra_amount" attrs="{'invisible':[('billing_type','not in',['by percentage', 'fixed amount', 'monthly by percentage'])],
+								'required':[('billing_type','in',['by percentage', 'fixed amount', 'monthly by percentage'])]}"/>
+						</group>
+							
+						<group>
+							<field name="billing_months"  attrs="{'invisible':[('billing_type','not in',['monthly by percentage'])],
+							'required':[('billing_type','in',['monthly by percentage'])]}"/>
+						</group>
+					</div>
+                </field>
+            </record>    
+    
+    
+    </data>
+</openerp>

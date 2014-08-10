@@ -1,0 +1,29 @@
+<openerp>
+    <data>
+    		 <record model="ir.ui.view" id="glimsol_view_order_withcarrier_form_inherit">
+                <field name="name">glimsol.view.order.withcarrier.form.inherit</field>
+                <field name="model">sale.order</field>
+                <field name="type">form</field>
+                <field name="inherit_id" ref="delivery.view_order_withcarrier_form"/>
+                <field name="arch" type="xml">
+                    <group style="width: 65%%" position="after">
+						<group style="width: 40%%">
+						<field name="billing_type"/>
+						</group>
+
+						<group>
+								<field name="billing_extra_amount" attrs="{'invisible':[('billing_type','not in',['by percentage', 'fixed amount', 'monthly by percentage'])],
+								'required':[('billing_type','in',['by percentage', 'fixed amount', 'monthly by percentage'])]}"/>
+						</group>
+							
+						<group>
+							<field name="billing_months"  attrs="{'invisible':[('billing_type','not in',['monthly by percentage'])],
+							'required':[('billing_type','in',['monthly by percentage'])]}"/>
+						</group>
+								
+					</group>
+                </field>
+            </record>
+    
+    </data>
+</openerp>
