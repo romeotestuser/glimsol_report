@@ -68,7 +68,7 @@ class shipping(report_sxw.rml_parse):
         #intigrate fetching of bundle items
         for count,datum in enumerate(data):
             print "datum".upper(),datum
-            datum.bundle_items=self._get_product_bundle_items(datum.product_id.id,datum.product_uom_qty,line_number=count+1)
+            datum.bundle_items=self._get_product_bundle_items(datum.product_id.id,datum.product_qty,line_number=count+1)
             print "datum.bundle_items".upper(),datum.bundle_items            
         res = [(x+1,obj) for x,obj in enumerate(data)]
         return res        
