@@ -39,31 +39,41 @@ class shipping(report_sxw.rml_parse):
             'get_product_bundle_items':self._get_product_bundle_items,
         })
         
-    def _get_product_bundle_items(self,product_id,context=None):
+    def _get_product_bundle_items(self,product_id,product_qty,context=None,line_number=None):
         cr=self.cr
         uid = self.uid
+        result=[]
         #fetch connected product item entries
 
         cr.execute('select id from product_item where product_id = %s' % product_id)
         product_item_ids = [x[0] for x in cr.fetchall()]
         res = self.pool.get('product.item').read(cr,uid,product_item_ids,['item_id','qty_uom','uom_id'])
+        for count,x in enumerate(res):
+            x['qty_uom']=x['qty_uom']*product_qty
+            x['line_number']='.'.join([str(line_number),str(count+1)])
+            result.append(x)
+            temp_res = self._get_product_bundle_items(x['item_id'][0], x['qty_uom'], context,'.'.join([str(line_number),str(count+1)]))
+            result.extend(temp_res)
 #         bundle_product_item_ids = [x[0] for x in cr.fetchall()]
 #         product_dicts=self.pool.get('product.product').read(cr,uid,bundle_product_item_ids,['name'])
 #         bundle_product_names = [product_dict['name'] for product_dict in product_dicts]
 #         res = bundle_product_names
 #         if context and 'mode' in context and context['mode'] == 'all':
 #             res = [product_dict['id'] for product_dict in product_dicts]
-        return res
+        return result
             
 
     def _get_product_line_number(self,data,context=None):
         cr = self.cr
         #intigrate fetching of bundle items
-        for datum in data:
-            datum.bundle_items=self._get_product_bundle_items(datum.product_id.id)
+        for count,datum in enumerate(data):
+            print "datum".upper(),datum
+            datum.bundle_items=self._get_product_bundle_items(datum.product_id.id,datum.product_uom_qty,line_number=count+1)
             print "datum.bundle_items".upper(),datum.bundle_items            
         res = [(x+1,obj) for x,obj in enumerate(data)]
         return res        
+
+        return data
 
 #     def _get_product_line_number(self,data,context=None):
 #         cr = self.cr

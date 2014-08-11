@@ -637,6 +637,34 @@
           <para style="P2">[[ o.company_id.currency_id.symbol ]] [[ "{:,.2f}".format(line[1].price_subtotal) or '0.00' ]]</para>
         </td>
       </tr>
+      <tr>
+       	<para style="P17">[[ repeatIn(line[1].bundle_items, 'component')]]</para>
+        <td>
+                <para style="P2">[[ component['line_number'] ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ component['item_id'][1] ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ component['item_id'][1] ]]</para>
+        </td>
+        <td>
+          <para style="P2">[[ component['qty_uom'] ]]</para>
+        </td>
+        <td>
+                <para style="P1">
+                  <font color="white"> </font>
+                </para>        </td>
+        <td>
+                <para style="P1">
+                  <font color="white"> </font>
+                </para>        </td>
+        <td>
+                <para style="P1">
+                  <font color="white"> </font>
+                </para>        </td>       	
+      
+      </tr>      
     </blockTable>
     <blockTable colWidths="539.0" style="Table10">
       <tr>
