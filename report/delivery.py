@@ -61,19 +61,35 @@ class shipping(report_sxw.rml_parse):
 #         if context and 'mode' in context and context['mode'] == 'all':
 #             res = [product_dict['id'] for product_dict in product_dicts]
         return result
+    
+#     def produce_line_number
             
-
+    def get_components_line(self,datum,count,result=None,context=None):
+        if not datum.child_ids:
+            return []
+        if not result:
+            result=[]
+        for sub_count,x in enumerate(datum.child_ids):
+            result.append('.'.join([str(count),str(sub_count+1)]))
+            if x.child_ids:
+                result.extend(self.get_components_line(x, '.'.join([str(count),str(sub_count+1)]),result))
+        return result
+    
     def _get_product_line_number(self,data,context=None):
         cr = self.cr
         #intigrate fetching of bundle items
+        #fetch main products (not bundle components)
+        fin_count=[]
+        parent_data = [x for x in data if not x.parent_id]
+        for count,datum in enumerate(parent_data):
+            fin_count.append(count+1)
+            fin_count.extend(self.get_components_line(datum,count+1))
+        res=[]
         for count,datum in enumerate(data):
-            print "datum".upper(),datum
-            datum.bundle_items=self._get_product_bundle_items(datum.product_id.id,datum.product_qty,line_number=count+1)
-            print "datum.bundle_items".upper(),datum.bundle_items            
-        res = [(x+1,obj) for x,obj in enumerate(data)]
+            datum.bundle_items=[]
+            res.append((fin_count[count],datum))
         return res        
 
-        return data
 
 #     def _get_product_line_number(self,data,context=None):
 #         cr = self.cr
