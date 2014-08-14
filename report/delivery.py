@@ -24,7 +24,7 @@ import time
 from openerp.report import report_sxw
 from openerp.netsvc import Service
 
-for x in ['report.sale.shipping','report.picking.equipment.transfer']:
+for x in ['report.sale.shipping','report.picking.equipment.transfer','report.picking.out.delivery.reciept','report.picking.out.delivery.order','report.sale.shipping.inherit']:
     try:
         del Service._services[x]
     except:
