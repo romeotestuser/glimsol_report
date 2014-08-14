@@ -26,7 +26,7 @@
     'category': '',
     'description': """Glimsol Reports""",
     'author': 'GLIMSOL',
-    'depends': ['sale','delivery','hr','qishu','product_bundle'],
+    'depends': ['sale','delivery','hr','qishu','product_bundle','account_billing'],
     'data': ['glimsol_report.xml','sale_order_inherit_view.xml','billing_statement_view.xml','invoice_inherit_view.xml'],
     'demo': [],
     'test': [],
