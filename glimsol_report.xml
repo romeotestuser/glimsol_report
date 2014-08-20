@@ -64,13 +64,34 @@ rml="glimsol_report/report/sale_order.rml" string="Quotation / Order"/>
             multi="True"
             rml="glimsol_report/report/delivery_order.rml"
             string="Delivery order"/>
+            
+
     <!-- Purchase Order -->
+    <report 
+		auto="False" 
+		id="purchase.report_purchase_order" 
+		model="purchase.order" 
+		name="purchase.order" 
+		rml="glimsol_report/report/purchase_order.rml" 
+		string="Purchase Order"
+	/>
+	
+    <!-- Purchase Quotation -->
+    <report 
+		auto="False" 
+		id="purchase.report_purchase_quotation" 
+		model="purchase.order" 
+		name="purchase.quotation" 
+		rml="glimsol_report/report/purchase_quotation.rml" 
+		string="Request for Quotation"
+	/>            
+    <!-- Purchase Order 
     <delete model="ir.actions.report.xml" search="[('report_name','in',['purchase.order','purchase.quotation']),('model','=','purchase.order')]"   />
     
     <report id = "report_purchase_order" model="purchase.order" name="purchase.order" rml="glimsol_report/report/order.rml" string="Purchase Order"/>
     
     <report id="report_request_quotation" model="purchase.order" name="request.quotation" rml="glimsol_report/report/request_quotation.rml" string="Request Quotation"/>
-        
+        -->
     <!-- Equipment Transfer -->
 	<delete model="ir.actions.report.xml" search="[('report_name','in',['stock.picking.rndCumqv']), ('model','=','stock.picking')]" />  
 	
