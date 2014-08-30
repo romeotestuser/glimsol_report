@@ -7,3 +7,4 @@ import billing_statement
 # import order
 # import request_quotation
 import purchase_order
+import picking

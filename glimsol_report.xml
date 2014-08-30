@@ -102,5 +102,12 @@ rml="glimsol_report/report/sale_order.rml" string="Quotation / Order"/>
 	
 	<report id="report_billing_statement" model="account.billing" name="glimsol.billing.statement"
 	rml="glimsol_report/report/billing_statement.rml" string="Billing Statement"/> 	
+	
+    
+    <!-- Internal Moves  -->
+    
+            <report id="stock.report_picking_list" model="stock.picking" name="stock.picking.list" string="Picking Slip" rml="glimsol_report/report/picking.rml"/>
+        <report id="stock.report_picking_list_in" model="stock.picking.in" name="stock.picking.list.in" string="Receipt Slip" rml="glimsol_report/report/picking.rml"/>
+        <report id="stock.report_picking_list_out" model="stock.picking.out" name="stock.picking.list.out" string="Delivery Slip" rml="glimsol_report/report/picking.rml"/>     	
     </data>
 </openerp>
