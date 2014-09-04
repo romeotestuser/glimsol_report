@@ -17,6 +17,19 @@ class sale_order(osv.osv):
   'billing_extra_amount':fields.integer('Amount / Percentage'),
   'billing_months':fields.integer('No. of Months'),              
               }
+
+    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+        invoice_vals=super(sale_order,self)._prepare_invoice(cr,uid,order,lines,context)
+        temp_vals={
+            "billing_type":order.billing_type,
+            "billing_extra_amount":order.billing_extra_amount,
+            "billing_months":order.billing_months,
+
+        }    
+        invoice_vals.update(temp_vals)        
+        return invoice_vals
+
+            
     def print_quotation(self, cr, uid, ids, context=None):
         '''
         This function prints the sales order and mark it as sent, so that we can see more easily the next step of the workflow
