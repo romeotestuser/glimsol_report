@@ -665,7 +665,7 @@
 						</td>
 						<td>
 							<!--para style="P2">[[ o.amount_tax or removeParentNode('tr') ]]</para-->
-							<para style="P2">[[ o.company_id.currency_id.symbol ]] [[ "{:,.2f}".format(o.amount_tax) or removeParentNode('tr') ]]</para>
+							<para style="P2">[[ o.company_id.currency_id.symbol + " {:,.2f}".format(o.amount_tax) or removeParentNode('tr') ]]</para>
 						</td>
 					</tr>
 				</blockTable>
@@ -750,7 +750,7 @@
             </tr>
             <tr>
               <td>
-                <para style="P1">[[ (o.billing_type not in  ['by percentage','whole amount'] and 'No. of Months:') or removeParentNode('tr') ]]</para>
+                <para style="P1">[[ (o.billing_type in  ['by percentage','monthly by percentage'] and 'No. of Months:') or removeParentNode('tr') ]]</para>
               </td>
               <td>
                 <para style="P2">[[ o.billing_months or removeParentNode('tr') ]]</para>
@@ -758,11 +758,11 @@
             </tr>
             <tr>
               <td>
-                <para style="P1">[[ (o.billing_type not in  ['by percentage','whole amount']  and 'Monthly Payment:') or removeParentNode('tr') ]]</para>
+                <para style="P1">[[ (o.billing_type  in  ['by percentage','monthly by percentage']  and 'Monthly Payment:') or removeParentNode('tr') ]]</para>
               </td>
               <td>
                 <!--para style="P7">[[ (o.billing_months and (get_monthly_payment(o) or removeParentNode('tr') ))]]</para-->
-                <para style="P7">[[ o.company_id.currency_id.symbol ]] [[ (o.billing_months and ("{:,.2f}".format(get_monthly_payment(o)) or '0.00' ))]]</para>
+                <para style="P7">[[ o.company_id.currency_id.symbol + (o.billing_months and (" {:,.2f}".format(get_monthly_payment(o)))  or ' 0.00') ]]</para>
               </td>
             </tr>
           </blockTable>

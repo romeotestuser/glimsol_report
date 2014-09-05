@@ -119,7 +119,9 @@ class order(report_sxw.rml_parse):
             balance=float(self._get_balance(data, context))
             res = balance / data.billing_months
 #         if res:
-#             res  = "%.2f" % round(res,2)            
+#             res  = "%.2f" % round(res,2)     
+        print "_get_monthly_payment!".upper()
+        print "res".upper(), res       
         return res
         
     def _get_designation(self,data,context=None):
